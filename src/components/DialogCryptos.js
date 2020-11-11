@@ -11,13 +11,14 @@ import Fuse from 'fuse.js'
 import { Colors } from "../styles";
 import data from "../constants/cryptos.json"
 import { getStyles } from "./styles"
+import AutoHeightImage from "react-native-auto-height-image";
 
 export const DialogCryptos = (props) => {
 
     const {
         onSelectItem,
         showCallingCode = true,
-        title = "Country",
+        title = "Crypto",
         searchPlaceholder = "Search",
         textEmpty = "Empty data",
         setVisible,
@@ -50,7 +51,7 @@ export const DialogCryptos = (props) => {
         distance: 100,
         maxPatternLength: 32,
         minMatchCharLength: 1,
-        keys: ['name', 'code'],
+        keys: ['name', 'symbol'],
         id: 'id'
     });
 
@@ -73,13 +74,12 @@ export const DialogCryptos = (props) => {
         setVisible(false)
     }
 
-    const renderItemTemplate = ({ name, emoji, code, callingCode }) => {
+    const renderItemTemplate = ({ name, symbol, icon }) => {
         return (
             <View style={[styles.item, itemContainer]}>
-                <Text style={[styles.flag, flagStyle]}>{emoji}</Text>
-                <Text style={[styles.currencyName, countryCodeStyle]}>{code}</Text>
+                <AutoHeightImage style={[styles.flag, flagStyle]} source={{ uri: `data:image/png;base64,${icon}` }} width={25} />
+                <Text style={[styles.currencyName, countryCodeStyle]}>{symbol}</Text>
                 <Text style={[styles.commonName, showCallingCode ? { width: 120 } : {}, countryNameStyle]}>{name}</Text>
-                {showCallingCode && <Text style={[styles.commonCallingCode, callingNameStyle]}>{`+${callingCode}`}</Text>}
             </View>
         );
     }
@@ -103,7 +103,7 @@ export const DialogCryptos = (props) => {
             const filteredCountries = fuse.search(value)
             if (_flatList) _flatList.scrollToOffset({ offset: 0 });
             filteredCountries.forEach(n => {
-                const item = data.filter(i => i.code === n.item.code.toString());
+                const item = data.filter(i => i.symbol === n.item.symbol.toString());
                 if (item.length > 0) listDataFilter.push(item[0])
 
             })
