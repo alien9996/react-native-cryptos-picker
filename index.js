@@ -1,6 +1,23 @@
+import { CryptosPicker as CryptosPickerComponent } from "./src/screens"
+import React from "react";
 
-import { NativeModules } from 'react-native';
+const DEFAULT_OPTIONS = {
+    onSelectCountry: () => { },
+    style: {},
+    showFlag: true,
+    showCallingCode: true,
+    showCountryName: true,
+    darkMode: true
+}
 
-const { RNReactNativeCryptosPicker } = NativeModules;
+export default CryptosPicker = (props) => {
 
-export default RNReactNativeCryptosPicker;
+    const propsModel = {
+        ...DEFAULT_OPTIONS,
+        ...props
+    }
+
+    return (
+        <CryptosPickerComponent {...propsModel} />
+    );
+}

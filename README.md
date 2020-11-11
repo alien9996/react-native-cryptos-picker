@@ -1,53 +1,129 @@
+# react-native-region-country-picker
 
-# react-native-react-native-cryptos-picker
+**Various country picker** for **iOS** and **Android**
+
+## Demo
+
+![gif](https://github.com/alien9996/ReactNativeImageFilter/blob/master/filter.gif?raw=true)
 
 ## Getting started
 
-`$ npm install react-native-react-native-cryptos-picker --save`
+`$ npm install react-native-region-country-picker --save`
+<br>
+OR
+<br>
+`$ yarn add react-native-region-country-picker`
 
-### Mostly automatic installation
+## Example
 
-`$ react-native link react-native-react-native-cryptos-picker`
-
-### Manual installation
-
-
-#### iOS
-
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-react-native-cryptos-picker` and add `RNReactNativeCryptosPicker.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRNReactNativeCryptosPicker.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project (`Cmd+R`)<
-
-#### Android
-
-1. Open up `android/app/src/main/java/[...]/MainActivity.java`
-  - Add `import com.reactlibrary.RNReactNativeCryptosPickerPackage;` to the imports at the top of the file
-  - Add `new RNReactNativeCryptosPickerPackage()` to the list returned by the `getPackages()` method
-2. Append the following lines to `android/settings.gradle`:
-  	```
-  	include ':react-native-react-native-cryptos-picker'
-  	project(':react-native-react-native-cryptos-picker').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-react-native-cryptos-picker/android')
-  	```
-3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-  	```
-      compile project(':react-native-react-native-cryptos-picker')
-  	```
-
-#### Windows
-[Read it! :D](https://github.com/ReactWindows/react-native)
-
-1. In Visual Studio add the `RNReactNativeCryptosPicker.sln` in `node_modules/react-native-react-native-cryptos-picker/windows/RNReactNativeCryptosPicker.sln` folder to their solution, reference from their app.
-2. Open up your `MainPage.cs` app
-  - Add `using React.Native.Cryptos.Picker.RNReactNativeCryptosPicker;` to the usings at the top of the file
-  - Add `new RNReactNativeCryptosPickerPackage()` to the `List<IReactPackage>` returned by the `Packages` method
-
-
-## Usage
 ```javascript
-import RNReactNativeCryptosPicker from 'react-native-react-native-cryptos-picker';
+import CountryPicker from "react-native-region-country-picker";
 
-// TODO: What to do with the module?
-RNReactNativeCryptosPicker;
+let countryPickerRef = undefined;
+
+// use countryPickerRef
+countryPickerRef.open();
+countryPickerRef.close();
+
+(showFlag = true),
+  (showCallingCode = true),
+  (showCountryName = true),
+  (
+    <CurrencyPicker
+      countryPickerRef={(ref) => {
+        countryPickerRef = ref;
+      }}
+      enable={true}
+      darkMode={false}
+      countryCode={"US"}
+      showFlag={true}
+      showCallingCode={true}
+      showCountryName={true}
+      showCountryCode={true}
+      onSelectCountry={(data) => {
+        console.log("DATA", data);
+      }}
+      onOpen={() => {
+        console.log("Open");
+      }}
+      onClose={() => {
+        console.log("Close");
+      }}
+      containerStyle={{
+        container: {},
+        flagStyle: {},
+        callingCodeStyle: {},
+        countryCodeStyle: {},
+        countryNameStyle: {},
+      }}
+      modalStyle={{
+        container: {},
+        searchStyle: {},
+        tileStyle: {},
+        itemStyle: {
+          itemContainer: {},
+          flagStyle: {},
+          countryCodeStyle: {},
+          countryNameStyle: {},
+          callingNameStyle: {},
+        },
+      }}
+      title={"Country"}
+      searchPlaceholder={"Search"}
+      showCloseButton={true}
+      showModalTitle={true}
+    />
+  );
 ```
-  
+
+## Options
+
+| Props                       | Default   | Options/Info                                                                             |
+| --------------------------- | --------- | ---------------------------------------------------------------------------------------- |
+| enable (Boolean)            | true      | Show component that choose the country.                                                  |
+| countryPickerRef (Function) | null      | Get the open() and close() modal methods.                                                |
+| darkMode (Boolean)          | true      | Dark mode for country modal.                                                             |
+| countryCode (String)        | US        | Country code displayed is selected at start.                                             |
+| onSelectCountry (Function)  | null      | Called when the user chooses a country and returns information for the selected country. |
+| onOpen (Function)           | null      | Called when the open modal.                                                              |
+| onClose (Function)          | null      | Called when the close modal.                                                             |
+| showCallingCode (Boolean)   | true      | Show the calling code of the country.                                                    |
+| showCountryName (Boolean)   | true      | Show the name of the country.                                                            |
+| showCountryCode (Boolean)   | true      | Show the code of the country.                                                            |
+| title (String)              | "Country" | The title of the modal select country.                                                   |
+| showCloseButton (Boolean)   | true      | Show the close button of the modal select country.                                       |
+| showModalTitle (Boolean)    | true      | Show the title of the modal select country.                                              |
+| containerStyle (Object)     | null      | Style for component that choose the country. <br> **Note**: See more details below.      |
+| modalStyle (Object)         | null      | Style for modal select country. <br> **Note**: See more details below.                   |
+| renderChildren (Component)  | null      | The child component replaces the component element of the library                        |
+
+## containerStyle
+
+| Props                     | Default | Options/Info                   |
+| ------------------------- | ------- | ------------------------------ |
+| container (Object)        | style   | Style for component container. |
+| flagStyle (Object)        | style   | Style for the icon country.    |
+| callingCodeStyle (Object) | style   | Style for country code.        |
+| countryNameStyle (Object) | style   | Style for country name.        |
+| countryCodeStyle (Object) | style   | Style for country code.        |
+
+## modalStyle
+
+| Props                | Default | Options/Info                                                         |
+| -------------------- | ------- | -------------------------------------------------------------------- |
+| container (Object)   | style   | Style for modal container                                            |
+| searchStyle (Object) | style   | Style for modal search input                                         |
+| tileStyle (Object)   | style   | Style for modal title                                                |
+| itemStyle (Object)   | style   | Style for item select country <br> **Note**: See more details below. |
+
+## itemStyle
+
+| Props                     | Default | Options/Info                     |
+| ------------------------- | ------- | -------------------------------- |
+| itemContainer (Object)    | style   | Style for item country container |
+| flagStyle (Object)        | style   | Style for the icon country.      |
+| callingCodeStyle (Object) | style   | Style for country code.          |
+| countryNameStyle (Object) | style   | Style for country name.          |
+| countryCodeStyle (Object) | style   | Style for country code.          |
+
+### Thank you for your interest!
