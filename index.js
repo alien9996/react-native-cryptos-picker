@@ -5,8 +5,6 @@ const DEFAULT_OPTIONS = {
     onSelectCountry: () => { },
     style: {},
     showFlag: true,
-    showCallingCode: true,
-    showCountryName: true,
     darkMode: true
 }
 

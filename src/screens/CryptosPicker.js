@@ -43,9 +43,9 @@ export const CryptosPicker = (props) => {
         cryptosPickerRef && cryptosPickerRef(currencyRef);
 
         if (cryptoSymbol) {
-            crypto = data.filter(item => item.code === cryptoSymbol)[0];
+            crypto = data.filter(item => item.symbol === cryptoSymbol)[0];
         } else {
-            crypto = data.filter(item => item.code === "USDT")[0];
+            crypto = data.filter(item => item.symbol === "USDT")[0];
         }
 
         if (crypto) {

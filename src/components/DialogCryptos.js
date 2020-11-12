@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Fuse from 'fuse.js'
 import { Colors } from "../styles";
-import data from "../constants/CommonCurrency.json"
+import data from "../constants/cryptos.json"
 import { getStyles } from "./styles"
 import { CryptosIcon } from "./CryptosIcon";
 
