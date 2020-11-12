@@ -9,31 +9,30 @@ import {
 } from 'react-native';
 import Fuse from 'fuse.js'
 import { Colors } from "../styles";
-import data from "../constants/cryptos.json"
+import data from "../constants/CommonCurrency.json"
 import { getStyles } from "./styles"
-import AutoHeightImage from "react-native-auto-height-image";
+import { CryptosIcon } from "./CryptosIcon";
 
 export const DialogCryptos = (props) => {
 
     const {
         onSelectItem,
-        showCallingCode = true,
-        title = "Crypto",
+        title = "Cryptos",
         searchPlaceholder = "Search",
         textEmpty = "Empty data",
         setVisible,
         darkMode = true,
         modalStyle,
         showCloseButton = true,
-        showModalTitle = true
+        showModalTitle = true,
     } = props;
 
     const [search, setSearch] = useState("");
-    const [listCountry, setListCountry] = useState(data);
+    const [listCryptos, setListCryptos] = useState(data);
 
     const { itemStyle = {}, container, searchStyle, tileStyle } = modalStyle;
 
-    const { itemContainer, flagStyle, countryCodeStyle, countryNameStyle, callingNameStyle } = itemStyle;
+    const { itemContainer, flagWidth = 25, cryptoCodeStyle, cryptoNameStyle } = itemStyle;
 
     useEffect(() => {
         StatusBar.setHidden(true);
@@ -59,7 +58,7 @@ export const DialogCryptos = (props) => {
         data.reduce(
             (acc, item) => [
                 ...acc,
-                { id: item.code, name: item.name, code: item.code }
+                { id: item.symbol, name: item.name, symbol: item.symbol }
             ],
             []
         ),
@@ -74,18 +73,20 @@ export const DialogCryptos = (props) => {
         setVisible(false)
     }
 
-    const renderItemTemplate = ({ name, symbol, icon }) => {
+    const renderItemTemplate = ({ icon, symbol, name }) => {
+
+
         return (
             <View style={[styles.item, itemContainer]}>
-                <AutoHeightImage style={[styles.flag, flagStyle]} source={{ uri: `data:image/png;base64,${icon}` }} width={25} />
-                <Text style={[styles.currencyName, countryCodeStyle]}>{symbol}</Text>
-                <Text style={[styles.commonName, showCallingCode ? { width: 120 } : {}, countryNameStyle]}>{name}</Text>
+                <CryptosIcon icon={icon} width={flagWidth} />
+                <Text style={[styles.currencyName, cryptoCodeStyle]}>{symbol}</Text>
+                <Text style={[styles.commonName, cryptoNameStyle]}>{name}</Text>
             </View>
         );
     }
 
     const renderItem = ({ item, index }) => {
-        const isLastItem = listCountry.length - 1 === index;
+        const isLastItem = listCryptos.length - 1 === index;
         return <TouchableOpacity style={{ marginBottom: isLastItem ? 150 : 0 }} onPress={() => onSelect(item)}>
             {renderItemTemplate(item)}
         </TouchableOpacity>
@@ -100,15 +101,15 @@ export const DialogCryptos = (props) => {
         if (value === "") {
             listDataFilter = data;
         } else {
-            const filteredCountries = fuse.search(value)
+            const filteredCryptos = fuse.search(value)
             if (_flatList) _flatList.scrollToOffset({ offset: 0 });
-            filteredCountries.forEach(n => {
+            filteredCryptos.forEach(n => {
                 const item = data.filter(i => i.symbol === n.item.symbol.toString());
                 if (item.length > 0) listDataFilter.push(item[0])
 
             })
         }
-        setListCountry(listDataFilter);
+        setListCryptos(listDataFilter);
     }
 
     return (
@@ -142,7 +143,7 @@ export const DialogCryptos = (props) => {
                 <FlatList
                     keyboardShouldPersistTaps={'handled'}
                     ref={(ref) => _flatList = ref}
-                    data={listCountry}
+                    data={listCryptos}
                     renderItem={renderItem}
                     keyExtractor={item => item.code}
                     ListEmptyComponent={() => <View style={styles.listNullContainer}>

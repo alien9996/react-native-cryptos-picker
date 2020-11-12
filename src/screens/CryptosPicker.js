@@ -1,29 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Modal } from 'react-native';
-import { getCountry } from "react-native-localize";
-import { Styles, Colors } from '../styles';
-import dataCountry from "../constants/countries.json";
-import { DialogCountry } from '../components';
+import { Styles } from '../styles';
+import data from "../constants/cryptos.json";
+import { DialogCryptos } from '../components';
+import { CryptosIcon } from "../components/CryptosIcon";
 
 export const CryptosPicker = (props) => {
 
-    const [callingCode, setCallingCode] = useState("1");
-    const [flag, setFlag] = useState("🇺🇸");
-    const [countryName, setCountryName] = useState("United States");
-    const [code, setCode] = useState("US");
+    const [currencyName, setCurrencyName] = useState("");
+    const [icon, setIcon] = useState("");
+    const [symbol, setSymbol] = useState("");
     const [visible, setVisible] = useState(false);
 
     const {
-        onSelectCountry,
-        countryCode,
+        onSelectCryptos,
+        cryptoSymbol,
         showFlag = true,
-        showCallingCode = true,
-        showCountryName = true,
+        showCryptoName = true,
         darkMode = true,
         renderChildren,
-        showCountryCode = true,
+        showCurrencySymbol = true,
 
-        countryPickerRef,
+        cryptosPickerRef,
         enable = true,
         onOpen,
         onClose,
@@ -35,31 +33,30 @@ export const CryptosPicker = (props) => {
         searchPlaceholder,
         textEmpty,
         showCloseButton = true,
-        showModalTitle = true
+        showModalTitle = true,
     } = props;
 
-    const { container, flagStyle, callingCodeStyle, countryCodeStyle, countryNameStyle } = containerStyle;
+    const { container, flagWidth = 25, cryptoCodeStyle, cryptoNameStyle } = containerStyle;
 
     useEffect(() => {
-        let country = undefined;
-        countryPickerRef && countryPickerRef(countryRef);
+        let crypto = undefined;
+        cryptosPickerRef && cryptosPickerRef(currencyRef);
 
-        if (countryCode) {
-            country = dataCountry.filter(item => item.code === countryCode)[0];
+        if (cryptoSymbol) {
+            crypto = data.filter(item => item.code === cryptoSymbol)[0];
         } else {
-            country = getDeviceInfo();
+            crypto = data.filter(item => item.code === "USDT")[0];
         }
 
-        if (country) {
-            const { callingCode, emoji, name, code } = country;
-            setCountryName(name)
-            setFlag(emoji);
-            setCallingCode(callingCode);
-            setCode(code);
+        if (crypto) {
+            const { icon, symbol, name } = crypto;
+            setCurrencyName(name);
+            setIcon(icon);
+            setSymbol(symbol)
         }
     }, [props]);
 
-    const countryRef = {
+    const currencyRef = {
         open: () => {
             setVisible(true);
             onOpen && onOpen();
@@ -70,30 +67,12 @@ export const CryptosPicker = (props) => {
         }
     }
 
-    const getDeviceInfo = () => {
-        let countryInfo = {};
-        const deviceCountry = getCountry();
-        if (deviceCountry) {
-            countryInfo = dataCountry.filter(item => item.code === deviceCountry)[0];
-        };
-
-        if (countryInfo) return countryInfo;
-        else return {
-            code: "US",
-            unicode: "U+1F1FA U+1F1F8",
-            name: "United States",
-            emoji: "🇺🇸",
-            callingCode: "1",
-        }
-    }
-
     const onSelect = (data) => {
-        const { callingCode, emoji, name, code } = data;
-        setFlag(emoji);
-        onSelectCountry && onSelectCountry(data);
-        setCallingCode(callingCode ? callingCode : "1");
-        setCountryName(name);
-        setCode(code);
+        const { icon, symbol, name } = data;
+        onSelectCryptos && onSelectCryptos(data);
+        setCurrencyName(name);
+        setIcon(icon);
+        setSymbol(symbol);
     }
 
     return (
@@ -103,19 +82,17 @@ export const CryptosPicker = (props) => {
                 style={[Styles.justifyContent, container]}
             >
                 {renderChildren ? renderChildren : <View style={{ flexDirection: "row" }}>
-                    {showFlag && <Text style={[styles.flagStyle, flagStyle]}>{flag}</Text>}
-                    {showCallingCode && <Text style={[styles.callingCodeStyle, callingCodeStyle]}>+{callingCode}</Text>}
-                    {showCountryCode && <Text style={[styles.txtCountryCode, countryCodeStyle]}>{code}</Text>}
-                    {showCountryName && <Text style={[styles.txtCountryName, countryNameStyle]}>{countryName}</Text>}
+                    {showFlag && <CryptosIcon icon={icon} width={flagWidth} />}
+                    {showCurrencySymbol && <Text style={[styles.txtCurrencyCode, cryptoCodeStyle]}>{symbol}</Text>}
+                    {showCryptoName && <Text style={[styles.txtCountryName, cryptoNameStyle]}>{currencyName}</Text>}
                 </View>}
             </TouchableOpacity> : null}
             <Modal
                 visible={visible}
             >
-                <DialogCountry
+                <DialogCryptos
                     onSelectItem={(data) => { onSelect(data) }}
                     setVisible={(value) => { setVisible(value); onClose && onClose(); }}
-                    showCallingCode={showCallingCode}
                     title={title}
                     searchPlaceholder={searchPlaceholder}
                     textEmpty={textEmpty}
@@ -130,18 +107,11 @@ export const CryptosPicker = (props) => {
 };
 
 const styles = StyleSheet.create({
-    callingCodeStyle: {
-        ...Styles.fontDefault
-    },
-    flagStyle: {
-        marginRight: 5,
-        color: Colors.black
-    },
     txtCountryName: {
         ...Styles.fontDefault,
         marginLeft: 10
     },
-    txtCountryCode: {
+    txtCurrencyCode: {
         ...Styles.fontDefault,
         marginLeft: 10,
         fontWeight: "600"
