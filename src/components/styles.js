@@ -28,27 +28,19 @@ export const getStyles = (darkTheme = true) => {
             alignItems: "center",
             paddingHorizontal: 25
         },
-        currencyName: {
-            color: Colors.txtCountryName,
+        cryptosName: {
+            color: Colors.txtCryptoName,
             fontWeight: "bold",
-            textAlign: "center",
+            textAlign: "left",
             width: 100,
             fontSize: 16,
             marginBottom: marginBottomByPlatform
         },
         commonName: {
-            color: Colors.txtCountryName,
+            color: Colors.txtCryptoName,
             marginBottom: marginBottomByPlatform,
             marginHorizontal: 20,
             fontSize: 14
-        },
-        commonCallingCode: {
-            color: Colors.txtCallingCode,
-            marginBottom: marginBottomByPlatform,
-            marginLeft: 20,
-            fontSize: 14,
-            flex: 1,
-            textAlign: "right"
         },
         search: {
             ...Styles.justifyCenter,
@@ -95,7 +87,7 @@ export const getStyles = (darkTheme = true) => {
             fontWeight: "600"
         },
         txtEmpty: {
-            color: Colors.txtCountryCode,
+            color: Colors.txtCryptoCode,
             fontSize: 16,
             fontWeight: "500"
         },

@@ -79,7 +79,7 @@ export const DialogCryptos = (props) => {
         return (
             <View style={[styles.item, itemContainer]}>
                 <CryptosIcon icon={icon} width={flagWidth} />
-                <Text style={[styles.currencyName, cryptoCodeStyle]}>{symbol}</Text>
+                <Text style={[styles.cryptosName, cryptoCodeStyle]}>{symbol}</Text>
                 <Text style={[styles.commonName, cryptoNameStyle]}>{name}</Text>
             </View>
         );

@@ -83,8 +83,8 @@ export const CryptosPicker = (props) => {
             >
                 {renderChildren ? renderChildren : <View style={{ flexDirection: "row" }}>
                     {showFlag && <CryptosIcon icon={icon} width={flagWidth} />}
-                    {showCurrencySymbol && <Text style={[styles.txtCurrencyCode, cryptoCodeStyle]}>{symbol}</Text>}
-                    {showCryptoName && <Text style={[styles.txtCountryName, cryptoNameStyle]}>{currencyName}</Text>}
+                    {showCurrencySymbol && <Text style={[styles.txtCryptoCode, cryptoCodeStyle]}>{symbol}</Text>}
+                    {showCryptoName && <Text style={[styles.txtCryptoName, cryptoNameStyle]}>{currencyName}</Text>}
                 </View>}
             </TouchableOpacity> : null}
             <Modal
@@ -107,11 +107,11 @@ export const CryptosPicker = (props) => {
 };
 
 const styles = StyleSheet.create({
-    txtCountryName: {
+    txtCryptoName: {
         ...Styles.fontDefault,
         marginLeft: 10
     },
-    txtCurrencyCode: {
+    txtCryptoCode: {
         ...Styles.fontDefault,
         marginLeft: 10,
         fontWeight: "600"
