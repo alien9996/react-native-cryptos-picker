@@ -7,6 +7,7 @@ export const getStyles = (darkTheme = true) => {
     const Colors = darkTheme ? ColorDarkMode : ColorLightMode;
 
     const marginBottomByPlatform = Platform.OS === "ios" ? 5 : 0;
+    const marginTopByPlatform = Platform.OS === "ios" ? 5 : 0;
 
     const styles = StyleSheet.create({
         container: {
@@ -34,13 +35,13 @@ export const getStyles = (darkTheme = true) => {
             textAlign: "left",
             width: 100,
             fontSize: 16,
-            marginBottom: marginBottomByPlatform
+            marginLeft: 30,
         },
         commonName: {
             color: Colors.txtCryptoName,
-            marginBottom: marginBottomByPlatform,
-            marginHorizontal: 20,
-            fontSize: 14
+            marginRight: 20,
+            marginLeft: 10,
+            fontSize: 14,
         },
         search: {
             ...Styles.justifyCenter,

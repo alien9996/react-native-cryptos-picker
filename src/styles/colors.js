@@ -18,7 +18,7 @@ export const Colors = {
 export const ColorDarkMode = {
     flagColor: Colors.black,
     txtCryptoCode: Colors.white,
-    txtCountryName: Colors.athensGray,
+    txtCryptoName: Colors.athensGray,
     txtTitleModal: Colors.white,
     backgroundModal: Colors.backgroundCurrency,
     backgroundInput: Colors.blueZodiac,
@@ -27,7 +27,7 @@ export const ColorDarkMode = {
 export const ColorLightMode = {
     flagColor: Colors.black,
     txtCryptoCode: Colors.black,
-    txtCountryName: Colors.codGray,
+    txtCryptoName: Colors.codGray,
     txtTitleModal: Colors.black,
     backgroundModal: Colors.whiteSmoke,
     backgroundInput: Colors.mercury

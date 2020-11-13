@@ -81,7 +81,7 @@ export const CryptosPicker = (props) => {
                 onPress={() => { setVisible(true); onOpen && onOpen() }}
                 style={[Styles.justifyContent, container]}
             >
-                {renderChildren ? renderChildren : <View style={{ flexDirection: "row" }}>
+                {renderChildren ? renderChildren : <View style={{ flexDirection: "row", alignItems: "center" }}>
                     {showFlag && <CryptosIcon icon={icon} width={flagWidth} />}
                     {showCurrencySymbol && <Text style={[styles.txtCryptoCode, cryptoCodeStyle]}>{symbol}</Text>}
                     {showCryptoName && <Text style={[styles.txtCryptoName, cryptoNameStyle]}>{currencyName}</Text>}
