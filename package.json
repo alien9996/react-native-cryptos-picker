@@ -1,6 +1,6 @@
 {
   "name": "react-native-cryptos-picker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Alien",
   "license": "MIT",
   "description": "React native library cryptos picker",
@@ -12,7 +12,7 @@
   "keywords": [
     "react-native",
     "android",
-    "IOS",
+    "IOS"
     "library",
     "country",
     "currency",
