@@ -12,13 +12,12 @@
   "keywords": [
     "react-native",
     "android",
-    "IOS"
+    "IOS",
     "library",
-    "country",
+    "Crypto",
     "currency",
-    "region",
     "picker",
-    "currency-picker"
+    "cryptos-picker"
   ],
   "repository": {
     "type": "git",
