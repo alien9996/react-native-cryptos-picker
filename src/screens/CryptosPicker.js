@@ -19,7 +19,7 @@ export const CryptosPicker = (props) => {
         showCryptoName = true,
         darkMode = true,
         renderChildren,
-        showCurrencySymbol = true,
+        showCryptoSymbol = true,
 
         cryptosPickerRef,
         enable = true,
@@ -36,7 +36,7 @@ export const CryptosPicker = (props) => {
         showModalTitle = true,
     } = props;
 
-    const { container, flagWidth = 25, cryptoCodeStyle, cryptoNameStyle } = containerStyle;
+    const { container, flagWidth = 25, cryptoSymbolStyle, cryptoNameStyle } = containerStyle;
 
     useEffect(() => {
         let crypto = undefined;
@@ -83,7 +83,7 @@ export const CryptosPicker = (props) => {
             >
                 {renderChildren ? renderChildren : <View style={{ flexDirection: "row", alignItems: "center" }}>
                     {showFlag && <CryptosIcon icon={icon} width={flagWidth} />}
-                    {showCurrencySymbol && <Text style={[styles.txtCryptoCode, cryptoCodeStyle]}>{symbol}</Text>}
+                    {showCryptoSymbol && <Text style={[styles.txtCryptoCode, cryptoSymbolStyle]}>{symbol}</Text>}
                     {showCryptoName && <Text style={[styles.txtCryptoName, cryptoNameStyle]}>{currencyName}</Text>}
                 </View>}
             </TouchableOpacity> : null}
